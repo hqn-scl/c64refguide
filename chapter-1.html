@@ -24,11 +24,13 @@
       <h1>CHAPTER 1</h1>
       <h2>BASIC PROGRAMMING RULES</h2>
       <ul>
-        <li>Introduction</li>
-        <li>Screen Display Codes (BASIC Character Set)</li>
-        <li>Programming Numbers and Variables</li>
-        <li>Expressions and Operators</li>
-        <li>Programming Techniques</li>
+        <li><a href="#Introduction">Introduction</a></li>
+        <li>
+          <a href="#Screen">Screen Display Codes (BASIC Character Set)</a>
+        </li>
+        <li><a href="#Programming">Programming Numbers and Variables</a></li>
+        <li><a href="#Expressions">Expressions and Operators</a></li>
+        <li><a href="#Techniques">Programming Techniques</a></li>
       </ul>
 
       <h2><a name="Introduction">INTRODUCTION</a></h2>
@@ -1285,7 +1287,7 @@
 </code>
 </pre>
 
-      <h2><a name="Programming">PROGRAMMING TECHNIQUES</a></h2>
+      <h2><a name="Techniques">PROGRAMMING TECHNIQUES</a></h2>
 
       <h3><a name="Data">DATA CONVERSIONS</a></h3>
 
@@ -1876,32 +1878,23 @@
         before and after crunching:
       </p>
 
-      <table>
-        <tr>
-          <th>
-            BEFORE CRUNCHING:
-          </th>
-          <th>AFTER CRUNCHING:</th>
-        </tr>
-        <tr>
-          <td>
-            <pre>
-      10 PRINT"HELLO...";            
-      20 FOR T=1 TO 500: NEXT           
-      30 PRINT"HELLO, AGAIN..."
-      40 GOTO 10
-     </pre
-            >
-          </td>
-          <td>
-            <pre>
-     10 PRINT "HELLO...";:FORT=1TO500:NEXT:
-     PRINT"HELLO, AGAIN...":GOTO10
-     </pre
-            >
-          </td>
-        </tr>
-      </table>
+      <h4>BEFORE CRUNCHING:</h4>
+      <pre>
+        <code class="language-basic">
+  10 PRINT"HELLO...";            
+  20 FOR T=1 TO 500: NEXT           
+  30 PRINT"HELLO, AGAIN..."
+  40 GOTO 10
+</code>
+</pre>
+
+      <h4>AFTER CRUNCHING:</h4>
+      <pre>
+<code class="language-basic">
+10 PRINT "HELLO...";:FORT=1TO500:NEXT:
+PRINT"HELLO, AGAIN...":GOTO10
+</code>
+</pre>
 
       <h3>REMOVING REM STATEMENTS</h3>
 
@@ -1928,36 +1921,27 @@
         sign. Here's one example:
       </p>
 
-      <table>
-        <tr>
-          <th>
-            BEFORE CRUNCHING:
-          </th>
-          <th>AFTER CRUNCHING:</th>
-        </tr>
-        <tr>
-          <td>
+      <h4>BEFORE CRUNCHING:</h4>
+      <pre>
+        <code class="language-basic">
+          10 POKE 54296,15                  
+          20 POKE 54276,33                  
+          30 POKE 54273,10                  
+          40 POKE 54273,40                  
+          50 POKE 54273,70
+          60 POKE 54296,0
+          </code>
+          </pre>
+
+<h4>AFTER CRUNCHING:</h4>
             <pre>
- 10 POKE 54296,15                  
- 20 POKE 54276,33                  
- 30 POKE 54273,10                  
- 40 POKE 54273,40                  
- 50 POKE 54273,70
- 60 POKE 54296,0
-</pre
-            >
-          </td>
-          <td>
-            <pre>
+              <code class="language-basic">
 10 V=54296:F=54273
 20 POKEV,15:POKE54276,33
 30 POKEF,10:POKEF,40:POKEF,70
 40 POKEV,0
-</pre
-            >
-          </td>
-        </tr>
-      </table>
+</code>
+</pre>
 
       <h3>USING READ AND DATA STATEMENTS</h3>
 
