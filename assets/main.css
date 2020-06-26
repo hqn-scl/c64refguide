@@ -344,7 +344,7 @@
 	 color: #595973;
 	 margin-bottom: 1rem; }
 	 h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-child), h5:not(:first-child), h6:not(:first-child) {
-		 margin-top: 3rem; }
+		 margin-top: 4rem; }
  
  h1 {
 	 font-size: 1.75rem;
@@ -380,20 +380,34 @@
 	 h1 {
 		 font-size: 2.125rem; }
 	 h2 {
-		 font-size: 1.5rem; }
+		 font-size: 1.75rem; }
 	 h3 {
 		 font-size: 1.5rem; }
 	 h4 {
 		 font-size: 1.375rem; }
 	 h5 {
-		 font-size: 1.375rem; }
+		 font-size: 1.125rem; }
 	 h6 {
 		 font-size: 1rem; } }
  
  p {
 	 margin: 0 0 1rem 0; }
+
+ul,ol {
+	margin: 0 0 2rem 0; 
+}
  
- .lead {
+pre code {
+	font-size: 0.8rem;
+}
+
+@media (min-width: 640px){
+	pre code {
+		font-size: 0.9rem;
+	}	
+}
+
+.lead {
 	 font-size: 1.125rem; }
  
  .text-white {
@@ -567,7 +581,8 @@
  table {
 	 border-collapse: collapse;
 	 min-width: 100%; 
-	margin-bottom: 2em; }
+	margin-bottom: 4em;
+}
 
 	.center {
 		text-align: center;
@@ -593,3 +608,9 @@
 	 .offset {
 		 padding-left: -1rem;
 	 }
+
+	 .alert {
+		padding: 1rem 1rem 1rem 2rem;
+		background-color: #dedede;
+		margin-bottom: 2rem;
+	}

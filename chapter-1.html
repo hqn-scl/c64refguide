@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C64 Programmer's Reference Guide</title>
+    <link rel="stylesheet" href="assets/main.css" />
+    <link href="assets/prism.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="container medium">
+        <a href="#menu" class="menu-link">Menu</a>
+        <nav id="menu" class="offset" role="navigation">
+          <ul>
+            <li><a href="index.html">C=</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="container medium">
+      <h1>CHAPTER 1</h1>
+      <h2>BASIC PROGRAMMING RULES</h2>
+      <ul>
+        <li>Introduction</li>
+        <li>Screen Display Codes (BASIC Character Set)</li>
+        <li>Programming Numbers and Variables</li>
+        <li>Expressions and Operators</li>
+        <li>Programming Techniques</li>
+      </ul>
+
+      <h2><a name="Introduction">INTRODUCTION</a></h2>
+
+      <p>
+        This chapter talks about how BASIC stores and manipulates data. The
+        topics include:
+      </p>
+
+      <ol>
+        <li>
+          A brief mention of the operating system components and functions as
+          well as the character set used in the Commodore 64.
+        </li>
+
+        <li>
+          The formation of constants and variables. What types of variables
+          there are. And how constants and variables are stored in memory.
+        </li>
+
+        <li>
+          The rules for arithmetic calculations, relationship tests, string
+          handling, and logical operations. Also included are the rules for
+          forming expressions, and the data conversions necessary when you're
+          using BASIC with mixed data types.
+        </li>
+      </ol>
+
+      <h2><a name="Screen">SCREEN DISPLAY CODES (BASIC CHARACTER SET)</a></h2>
+
+      <h3><a name="Operating">THE OPERATING SYSTEM (OS)</a></h3>
+
+      <p>
+        The Operating System is contained in the Read Only Memory (ROM) chips
+        and is a combination of three separate, but interrelated, program
+        modules.
+      </p>
+
+      <ol>
+        <li>The BASIC Interpreter</li>
+        <li>The KERNAL</li>
+        <li>The Screen Editor</li>
+      </ol>
+
+      <ol>
+        <li>
+          <b>The BASIC Interpreter</b> is responsible for analyzing BASIC
+          statement syntax and for performing the required calculations and/or
+          data manipulation. The BASIC Interpreter has a vocabulary of 65
+          "keywords" which have special meanings. The upper and lower case
+          alphabet and the digits 0-9 are used to make both keywords and
+          variable names. Certain punctuation characters and special symbols
+          also have meanings for the Interpreter. Table 1-1 lists the special
+          characters and their uses.
+        </li>
+
+        <li>
+          <b>The KERNAL</b> handles most of the interrupt level processing in
+          the system (for details on interrupt level processing, see Chapter 5).
+          The KERNAL also does the actual input and output of data.
+        </li>
+
+        <li>
+          <b>The Screen Editor</b> controls the output to the video screen
+          (television set) and the editing of BASIC program text. In addition,
+          the Screen Editor intercepts keyboard input so that it can decide
+          whether the characters put in should be acted upon immediately, or
+          passed on to the BASIC Interpreter.
+        </li>
+      </ol>
+
+      <table>
+        <caption>
+          Table 1 - 1. CBM BASIC Character Set
+        </caption>
+        <tr>
+          <th>CHARACTER</th>
+          <th>NAME and DESCRIPTION</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>BLANK - separates keywords and variable names</td>
+        </tr>
+        <tr>
+          <td><kbd>;</kbd></td>
+          <td>SEMI-COLON - used in variable lists to format output</td>
+        </tr>
+        <tr>
+          <td><kbd>=</kbd></td>
+          <td>EQUAL SIGN - value assignment and relationship testing</td>
+        </tr>
+        <tr>
+          <td><kbd>+</kbd></td>
+          <td>
+            PLUS SIGN - arithmetic addition or string concatenation<br />(<i
+              >concatenation:</i
+            >
+            linking together in a chain)
+          </td>
+        </tr>
+        <tr>
+          <td><kbd>-</kbd></td>
+          <td>MINUS SIGN - arithmetic subtraction, unary minus</td>
+        </tr>
+        <tr>
+          <td><kbd>*</kbd></td>
+          <td>ASTERISK - arithmetic multiplication</td>
+        </tr>
+        <tr>
+          <td><kbd>/</kbd></td>
+          <td>SLASH - arithmetic division</td>
+        </tr>
+        <tr>
+          <td><kbd>(</kbd></td>
+          <td>LEFT PARENTHESIS - expression evaluation and functions</td>
+        </tr>
+        <tr>
+          <td><kbd>)</kbd></td>
+          <td>RIGHT PARENTHESIS - expression evaluation and functions</td>
+        </tr>
+        <tr>
+          <td><kbd>%</kbd></td>
+          <td>PERCENT - declares variable name as an integer</td>
+        </tr>
+        <tr>
+          <td><kbd>#</kbd></td>
+          <td>
+            NUMBER - comes before logical file number in input/output statements
+          </td>
+        </tr>
+        <tr>
+          <td><kbd>$</kbd></td>
+          <td>DOLLAR SIGN - declares variable name as a string</td>
+        </tr>
+        <tr>
+          <td><kbd>,</kbd></td>
+          <td>
+            COMMA - used in variable lists to format output; also separates
+            command parameters
+          </td>
+        </tr>
+        <tr>
+          <td><kbd>.</kbd></td>
+          <td>PERIOD - decimal point in floating point constants</td>
+        </tr>
+        <tr>
+          <td><kbd>"</kbd></td>
+          <td>QUOTATION MARK - encloses string constants</td>
+        </tr>
+        <tr>
+          <td><kbd>:</kbd></td>
+          <td>COLON - separates multiple BASIC statements in a line</td>
+        </tr>
+        <tr>
+          <td><kbd>?</kbd></td>
+          <td>QUESTION MARK - abbreviation for the keyword PRINT</td>
+        </tr>
+        <tr>
+          <td><kbd>&lt;</kbd></td>
+          <td>LESS THAN - used in relationship tests</td>
+        </tr>
+        <tr>
+          <td><kbd>&gt;</kbd></td>
+          <td>GREATER THAN - used in relationship tests</td>
+        </tr>
+        <tr>
+          <td><kbd>&lt;pi&gt;</kbd></td>
+          <td>PI - the numeric constant 3.141592654</td>
+        </tr>
+      </table>
+
+      <p>The Operating System gives you two modes of BASIC operation:</p>
+      <ol>
+        <li>DIRECT Mode</li>
+        <li>PROGRAM Mode</li>
+      </ol>
+
+      <ol>
+        <li>
+          When you're using the DIRECT mode, BASIC statements don't have line
+          numbers in front of the statement. They are executed whenever the
+          <kbd>&lt;RETURN&gt;</kbd> key is pressed.
+        </li>
+        <li>The PROGRAM mode is the one you use for running programs.</li>
+      </ol>
+
+      <ol start="2">
+        <li>
+          When using the PROGRAM mode, all of your BASIC statements must have
+          line numbers in front of them. You can have more than one BASIC
+          statement in a line of your program, but the number of statements is
+          limited by the fact that you can only put 80 characters on a logical
+          screen line. This means that if you are going to go over the 80
+          character limit you have to put the entire BASIC statement that
+          doesn't fit on a new line with a new line number.
+        </li>
+      </ol>
+      <div class="alert">
+        <b>Note:</b>
+        <p>
+          Always type <a href="../Chapter_2/page_062.html#new">NEW</a> and hit
+          <kbd>&lt;RETURN&gt;</kbd> before starting a new program.
+        </p>
+      </div>
+
+      <p>
+        The Commodore 64 has two complete character sets that you can use either
+        from the keyboard or in your programs.
+      </p>
+      <p>
+        In SET 1, the upper case alphabet and the numbers 0-9 are available
+        without pressing the <kbd>&lt;SHIFT&gt;</kbd> key. If you hold down the
+        <kbd>&lt;SHIFT&gt;</kbd> key while typing, the graphics characters on
+        the RIGHT side of the front of the keys are used. If you hold down the
+        <kbd>&lt;C=&gt;</kbd> key while typing, the graphics characters on the
+        LEFT side of the front of the key are used. Holding down the
+        <kbd>&lt;SHIFT&gt;</kbd> key while typing any character that doesn't
+        have graphic symbols on the front of the key gives you the symbol on the
+        top most part of the key.
+      </p>
+      <p>
+        In SET 2, the lower case alphabet and the numbers 0-9 are available
+        without pressing the <kbd>&lt;SHIFT&gt;</kbd> key. The upper case
+        alphabet is available when you hold down the
+        <kbd>&lt;SHIFT&gt;</kbd> key while typing. Again, the graphic symbols on
+        the LEFT side of the front of the keys are displayed by pressing the
+        <kbd>&lt;C=&gt;</kbd> key, while the symbols on the top most part of any
+        key without graphics characters are selected when you hold down the
+        <kbd>&lt;SHIFT&gt;</kbd> key while typing.
+      </p>
+
+      <p>
+        To switch from one character set to the other press the
+        <kbd>&lt;C=&gt;</kbd> and the <kbd>&lt;SHIFT&gt;</kbd> keys together.
+      </p>
+
+      <h2><a name="Programming">PROGRAMMING NUMBERS AND VARIABLES</a></h2>
+
+      <h3>
+        <a name="Integer">INTEGER, FLOATING-POINT AND STRING CONSTANTS</a>
+      </h3>
+
+      <p>
+        Constants are the data values that you put in your BASIC statements.
+        BASIC uses these values to represent data during statement execution.
+        CBM BASIC can recognize and manipulate three types of constants:
+      </p>
+
+      <ol>
+        <li>INTEGER NUMBERS</li>
+        <li>FLOATING-POINT NUMBERS</li>
+        <li>STRINGS</li>
+      </ol>
+      <p>
+        <b>Integer constants</b> are whole numbers (numbers without decimal
+        points). Integer constants must be between -32768 and +32767.
+        <i
+          >Integer constants do not have decimal points or commas between
+          digits.</i
+        >
+        If the plus (+) sign is left out, the constant is assumed to be a
+        positive number. Zeros coming before a constant are ignored and
+        shouldn't be used since they waste memory and slow down your program.
+        However, they won't cause an error. Integers are stored in memory as
+        two-byte binary numbers. Some examples of integer constants are:
+      </p>
+
+      <pre>
+        <code class="language-basic">
+            -12
+            8765
+            -32768
+            +44
+            0
+            -32767
+        </code>
+      </pre>
+
+      <div class="alert">
+        <b>Note:</b>
+        <p>
+          Do NOT put commas inside any number. For example, always type 32,000
+          as 32000. If you put a comma in the middle of a number you will get
+          the BASIC error message
+          <b
+            ><a href="../Appendices/page_400.html#syntax_error"
+              >?SYNTAX ERROR</a
+            ></b
+          >.
+        </p>
+      </div>
+
+      <p>
+        <b>Floating-point constants</b> are positive or negative numbers and can
+        contain fractions. Fractional parts of a number may be shown using a
+        decimal point. Once again remember that commas are NOT used between
+        numbers. If the plus sign (+) is left off the front of a number, the
+        Commodore 64 assumes that the number is positive. If you leave off the
+        decimal point the computer will assume that it follows the last digit of
+        the number. And as with integers, zeros that come before a constant are
+        ignored. Floating-point constants can be used in two ways:
+      </p>
+      <ol>
+        <li>SIMPLE NUMBER</li>
+        <li>SCIENTIFIC NOTATION</li>
+      </ol>
+
+      <p>
+        Floating-point constants will show you up to nine digits on your screen.
+        These digits can represent values between -999999999. and +999999999. If
+        you enter more than nine digits the number will be rounded based on the
+        tenth digit. if the tenth digit is greater than or equal to 5 the number
+        will be rounded upward. Less than 5 the number be rounded downward. This
+        could be important to the final totals of some numbers you may want to
+        work with.
+      </p>
+      <p>
+        Floating-point numbers are stored (using five bytes of memory) and are
+        manipulated in calculations with ten places of accuracy. However,
+      </p>
+
+      <p>
+        the numbers are rounded to nine digits when results are printed. Some
+        examples of simple floating-point numbers are:
+      </p>
+
+      <pre>
+        <code class="language-basic">
+          1.23
+          -.998877
+          +3.1459
+          .7777777
+          -333.
+          .01
+        </code>
+        </pre>
+
+      <p>
+        Numbers smaller than .01 or larger than 999999999. will be printed in
+        scientific notation. In scientific notation a floating-point constant is
+        made up of three parts:
+      </p>
+
+      <ol>
+        <li>THE MANTISSA</li>
+        <li>THE LETTER E</li>
+        <li>THE EXPONENT</li>
+      </ol>
+
+      <p>
+        The mantissa is a simple floating-point number. The letter E is used to
+        tell you that you're seeing the number in exponential form. In other
+        words E represents * 10 (eg., 3E3 = 3*10^3 = 3000). And the exponent is
+        what multiplication power of 10 the number is raised to.
+      </p>
+      <p>
+        Both the mantissa and the exponent are signed (+ or -) numbers. The
+        exponent's range is from -39 to +38 and it indicates the number of
+        places that the actual decimal point in the mantissa would be moved to
+        the left (-) or right (+) if the value of the constant were represented
+        as a simple number.
+      </p>
+      <p>
+        There is a limit to the size of floating-point numbers that BASIC can
+        handle, even in scientific notation: the largest number is
+        +1.70141183E+38 and calculations which would result in a larger number
+        will display the BASIC error message
+        <b><a href="../Appendices/page_400.html#overflow">?OVERFLOW ERROR</a></b
+        >. The smallest floating-point number is +2.93873588E-39 and
+        calculations which result in a smaller value give you zero as an answer
+        and NO error message. Some examples of floating-point numbers in
+        scientific notation (and their decimal values) are:
+      </p>
+
+      <table cellspacing="0">
+        <tr>
+          <td><code>235.988E-3</code></td>
+          <td><code>(.235988)</code></td>
+        </tr>
+        <tr>
+          <td><code>2359E6</code></td>
+          <td><code>(2359000000.)</code></td>
+        </tr>
+        <tr>
+          <td><code>-7.09E-12</code></td>
+          <td><code>(-.00000000000709)</code></td>
+        </tr>
+        <tr>
+          <td><code>-3.14159E+5</code></td>
+          <td><code>(-314159.)</code></td>
+        </tr>
+      </table>
+
+      <p>
+        String constants are groups of alphanumeric information like letters,
+        numbers and symbols. When you enter a string from the keyboard, it can
+        have any length up to the space available in an 80-character line (that
+        is, any character spaces NOT taken up by the line number and other
+        required parts of the statement).
+      </p>
+      <p>
+        A string constant can contain blanks, letters, numbers, punctuation and
+        color or cursor control characters in any combination. You can even put
+        commas between numbers.
+        <i
+          >The only character which cannot be included in a string is the double
+          quote mark (").</i
+        >
+        This is because the double quote mark is used to define the beginning
+        and end of the string. A string can also have a null value - which means
+        that it can contain no character data. You can leave the ending quote
+        mark off of a string if it's the last item on a line or if it's followed
+        by a colon (:). Some examples of string constants are:
+      </p>
+
+      <table>
+        <tr>
+          <td><code>""</code></td>
+          <td><code>( a null string)</code></td>
+        </tr>
+        <tr>
+          <td colspan="2"><code>"HELLO"</code></td>
+        </tr>
+        <tr>
+          <td colspan="2"><code>"$25,000.00"</code></td>
+        </tr>
+        <tr>
+          <td colspan="2"><code>"NUMBER OF EMPLOYEES"</code></td>
+        </tr>
+      </table>
+
+      <div class="alert">
+        <b>Note:</b>
+        <p>
+          Use <a href="../Chapter_2/page_038.html#chr$">CHR$(34)</a> to include
+          quotes (") in strings.
+        </p>
+      </div>
+
+      <h3>
+        <a name="Integer">INTEGER, FLOATING-POINT AND STRING VARIABLES</a>
+      </h3>
+
+      <p>
+        Variables are names that represent data values used in your BASIC
+        statements. The value represented by a variable can be assigned by
+        setting it equal to a constant, or it can be the result of calculations
+        in the program. Variable data, like constants, can be integers,
+        floating-point numbers, or strings. If you refer to a variable name in a
+        program before a value has been assigned, the BASIC Interpreter will
+        automatically create the variable with a value of zero if it's an
+        integer or floating-point number. Or it will create a variable with a
+        null value if you're using strings.
+      </p>
+
+      <p>
+        Variable names can be any length but only the first two characters are
+        considered significant in CBM BASIC. This means that all names used for
+        variables must NOT have the same first two characters.
+        <i
+          >Variable names may NOT be the same as BASIC keywords and they may NOT
+          contain keywords in the middle of variable names.</i
+        >
+        Keywords include all BASIC commands, statements, function names and
+        logical operator names. If you accidentally use a keyword in the middle
+        of a variable name, the BASIC error message
+        <b
+          ><a href="../Appendices/page_400.html#syntax_error"
+            >?SYNTAX ERROR</a
+          ></b
+        >
+        will show up on your screen.
+      </p>
+
+      <p>
+        The characters used to form variable names are the alphabet and the
+        numbers 0-9. The first character of the name must be a letter. Data type
+        declaration characters (%) and ($) can be used as the last character of
+        the name. The percent sign declares the variable to be an integer and
+        the dollar sign ($) declares a string variable. If no type declaration
+        character is used the Interpreter will assume that the variable is a
+        floating-point. Some examples of variable names, value assignments and
+        data types are:
+      </p>
+
+      <table>
+        <tr>
+          <td><code>$="GROSS SALES"</code></td>
+          <td><code>(string variable)</code></td>
+        </tr>
+        <tr>
+          <td><code>MTH$="JAN"+A$</code></td>
+          <td><code>(string variable)</code></td>
+        </tr>
+        <tr>
+          <td><code>K%=5</code></td>
+          <td><code>(integer variable)</code></td>
+        </tr>
+        <tr>
+          <td><code>CNT%=CNT%+1</code></td>
+          <td><code>(integer variable)</code></td>
+        </tr>
+        <tr>
+          <td><code>FP=12.5</code></td>
+          <td><code>(floating-point variable)</code></td>
+        </tr>
+        <tr>
+          <td><code>SUM=FP*CNT%</code></td>
+          <td><code>(floating-point variable)</code></td>
+        </tr>
+      </table>
+
+      <h3><a name="Integer">INTEGER, FLOATING-POINT AND STRING ARRAYS</a></h3>
+
+      <p>
+        An array is a table (or list) of associated data items referred to by a
+        single variable name. In other words, an array is a sequence of related
+        variables. A table of numbers can be seen as an array, for example.
+      </p>
+      The individual numbers within the table become "elements" of the array.
+      <p>
+        Arrays are a useful shorthand way of describing a large number of
+        related variables. Take a table of numbers for instance. Let's say that
+        the table has 10 rows of numbers with 20 numbers in each row. That makes
+        total of 200 numbers in the table. Without a single array name to call
+        on you would have to assign a unique name to each value in the table.
+        But because you can use arrays you only need one name for the array and
+        all the elements in the array are identified by their individual
+        locations within the array.
+      </p>
+      <p>
+        Array names can be integers, floating-points or string data types and
+        all elements in the array have the same data type as the array name.
+        Arrays can have a single dimension (as in a simple list) or they can
+        have multiple dimensions (imagine a grid marked in rows and columns or a
+        Rubik's Cube&reg;). Each element of an array is uniquely identified and
+        referred to by a subscript (or index variable) following the array name,
+        enclosed within parentheses ( ).
+      </p>
+      <p>
+        The maximum number of dimensions an array can have in theory is 255 and
+        the number of elements in each dimension is limited to 32767. But for
+        practical purposes array sizes are limited by the memory space available
+        to hold their data and/or the 80 character logical screen line. If an
+        array has only one dimension and its subscript value will never exceed
+        10 (11 items: 0 thru 10) then the array will be created by the
+        Interpreter and filled with zeros (or nulls if string type) the first
+        time any element of the array is referred to, otherwise the BASIC DIM
+        statement must be used to define the shape and size of the array. The
+        amount of memory required to store an array can be determined as
+        follows:
+      </p>
+
+      <table>
+        <tr>
+          <td><code></code></td>
+          <td><code></code></td>
+          <td><code>5 bytes for the array name</code></td>
+        </tr>
+        <tr>
+          <td><code></code></td>
+          <td><code>+</code></td>
+          <td><code>2 bytes for each dimension of the array</code></td>
+        </tr>
+        <tr>
+          <td><code></code></td>
+          <td><code>+</code></td>
+          <td><code>2 bytes per element for integers</code></td>
+        </tr>
+        <tr>
+          <td><code>OR</code></td>
+          <td><code>+</code></td>
+          <td><code>5 bytes per element for floating-point</code></td>
+        </tr>
+        <tr>
+          <td><code>OR</code></td>
+          <td><code>+</code></td>
+          <td><code>3 bytes per element for strings</code></td>
+        </tr>
+        <tr>
+          <td><code>AND</code></td>
+          <td><code>+</code></td>
+          <td><code>1 byte per character in each string element</code></td>
+        </tr>
+      </table>
+
+      <p>
+        Subscripts can be integer constants, variables, or an arithmetic
+        expression which gives an integer result. Separate subscripts, with com-
+        mas between them, are required for each dimension of an array.
+        Subscripts can have values from zero up to the number of elements in the
+        respective dimensions of the array. Values outside that range will cause
+        the BASIC error message
+        <b
+          ><a href="../Appendices/page_400.html#bad_subscript"
+            >?BAD SUBSCRIPT</a
+          ></b
+        >. Some examples of array names, value assignments and data types are:
+      </p>
+
+      <table>
+        <tr>
+          <td><code>A$(0)="GROSS SALES"</code></td>
+          <td><code>(string array)</code></td>
+        </tr>
+        <tr>
+          <td><code>MTH$(K%)="JAN"</code></td>
+          <td><code>(string array)</code></td>
+        </tr>
+        <tr>
+          <td><code>G2%(X)=5</code></td>
+          <td><code>(integer array)</code></td>
+        </tr>
+        <tr>
+          <td><code>CNT%(G2%(X))=CNT%(1)-2</code></td>
+          <td><code>(integer array)</code></td>
+        </tr>
+        <tr>
+          <td><code>FP(12*K%)=24.8</code></td>
+          <td><code>(floating-point array)</code></td>
+        </tr>
+        <tr>
+          <td><code>SUM(CNT%(1))=FP^K%</code></td>
+          <td><code>(floating-point array)</code></td>
+        </tr>
+        <tr>
+          <td><code>A(5)=0</code></td>
+          <td>
+            <code>
+              (sets the 5th element in the 1 dimensional array called "A" equal
+              to 0)
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>B(5,6)=0</code></td>
+          <td>
+            <code>
+              (sets the element in row position 5 and column position 6 in the 2
+              dimensional array called "B" equal to 0)
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>C(1,2,3)=0</code></td>
+          <td>
+            <code>
+              (sets the element in row position 1, column position 2, and depth
+              position 3 in the 3 dimensional array called "C" equal to 0)
+            </code>
+          </td>
+          <td><code></code></td>
+        </tr>
+      </table>
+
+      <h2><a name="Expressions">EXPRESSIONS AND OPERATORS</a></h2>
+
+      <p>
+        Expressions are formed using constants, variables and/or arrays. An
+        expression can be a single constant, simple variable, or an array
+        variable of any type. It can also be a combination of constants and
+        variables with arithmetic, relational or logical operators designed to
+        produce a single value. How operators work is explained below.
+        Expressions can be separated into two classes:
+      </p>
+
+      <ol>
+        <li>ARITHMETIC</li>
+        <li>STRING</li>
+      </ol>
+
+      <p>
+        Expressions are normally thought of as having two or more data items
+        called operands. Each operand is separated by a single operator to
+        produce the desired result. This is usually done by assigning the value
+        of the expression to a variable name. All of the examples of constants
+        and variables that you've seen so for, were also examples of
+        expressions.
+      </p>
+      <p>
+        An operator is a special symbol the BASIC Interpreter in your Commodore
+        64 recognizes as representing an operation to be performed on the
+        variables or constant data. One or more operators, combined with one or
+        more variables and/or constants form an expression. Arithmetic,
+        relational and logical operators are recognized by Commodore 64 BASIC.
+      </p>
+
+      <h3><a name="ArithmeticE">ARITHMETIC EXPRESSIONS</a></h3>
+
+      <p>
+        Arithmetic expressions, when solved, will give an integer or floating-
+        point value. The arithmetic operators (+, -, *, /, ^) are used to
+        perform addition, subtraction, multiplication, division and
+        exponentiation operations respectively.
+      </p>
+
+      <h3><a name="ArithmeticO">ARITHMETIC OPERATIONS</a></h3>
+
+      <p>
+        An arithmetic operator defines an arithmetic operation which is per-
+        formed on the two operands on either side of the operator. Arithmetic
+        operations are performed using floating-point numbers. Integers are
+        converted to floating-point numbers before an arithmetic operation is
+        performed. The result is converted back to an integer if it is assigned
+        to an integer variable name.
+      </p>
+
+      <p>
+        <b>ADDITION (+)</b>: The plus sign (+) specifies that the operand on the
+        right is added to the operand on the left.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <pre>
+          <code class="language-basic">
+            2+2
+            A+B+C
+            X%+1
+            BR+10E-2
+          </code>
+        </pre>
+
+      <p>
+        <b>SUBTRACTION (-)</b>: The minus sign (-) specifies that the operand on
+        the right is subtracted from the operand on the left.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <pre>
+        <code class="language-basic">
+          4-1
+          100-64
+          A-B
+          55-142
+        </code>
+      </pre>
+      <p>
+        The minus can also be used as a unary minus. That means that it is the
+        minus sign in front of a negative number. This is equal to subtracting
+        the number from zero (0).
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <pre>
+        <code class="language-basic">
+          -5
+          -9E4
+          -B
+          4-(-2) same as 4+2
+        </code>
+      </pre>
+      <p>
+        <b>MULTIPLICATION (*)</b>: An asterisk (*) specifies that the operand on
+        the left is multiplied by the operand on the right.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <pre>
+        <code class="language-basic">
+          100*2
+          50*0
+          A*X1
+          R%*14
+        </code>
+      </pre>
+      <p>
+        <b>DIVISION (/)</b>: The slash (/) specifies that the operand on the
+        left is divided by the operand on the right.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <pre>
+<code class="language-basic">
+            10/2
+            6400/4
+            A/B
+            4E2/XR
+</code>
+  </pre>
+      <p>
+        <b>EXPONENTIATION</b> The up arrow (^) specifies that the operand on the
+        left is raised to the power specified by the operand on the right (the
+        exponent). If the operand on the right is a 2, the number on the left is
+        squared; if the exponent is a 3, the number on the left is cubed, etc.
+        The exponent can be any number so long as the result of the operation
+        gives a valid floating-point number.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+      <table>
+        <tr>
+          <td><code>2^2 </code></td>
+          <td><code>Equivalent to: 2*2</code></td>
+        </tr>
+        <tr>
+          <td><code>3^3 </code></td>
+          <td><code>Equivalent to: 3*3*3</code></td>
+        </tr>
+        <tr>
+          <td><code>4^4 </code></td>
+          <td><code>Equivalent to: 4*4*4*4</code></td>
+        </tr>
+        <tr>
+          <td><code>AB^CD</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>3^-2 </code></td>
+          <td><code>Equivalent to: 1/3*1/3</code></td>
+        </tr>
+      </table>
+
+      <h3><a name="Relational">RELATIONAL OPERATORS</a></h3>
+
+      <p>
+        The relational operators (&lt;, =, &gt;, &lt;=, &gt;=, &lt;&gt;) are
+        primarily used to compare the values of two operands, but they also
+        produce an arithmetic result. The relational operators and the logical
+        operators (<a href="../Chapter_2/page_035.html#and">AND</a>,
+        <a href="../Chapter_2/page_068.html#or">OR</a>, and
+        <a href="../Chapter_2/page_063.html#not">NOT</a>), when used in
+        comparisons, actually produce an arithmetic true/false evaluation of an
+        expression. If the relationship stated in the expression is true the
+        result is assigned an integer value of - 1 and if it's false a value of
+        0 is assigned. These are the relational operators:
+      </p>
+
+      <table>
+        <tr>
+          <td><code>&lt; </code></td>
+          <td><code>LESS THAN</code></td>
+        </tr>
+        <tr>
+          <td><code>= </code></td>
+          <td><code>EQUAL TO</code></td>
+        </tr>
+        <tr>
+          <td><code>&gt; </code></td>
+          <td><code>GREATER THAN</code></td>
+        </tr>
+        <tr>
+          <td><code>&lt;= </code></td>
+          <td><code>LESS THAN OR EQUAL TO</code></td>
+        </tr>
+        <tr>
+          <td><code>&gt;= </code></td>
+          <td><code>GREATER THAN OR EQUAL TO</code></td>
+        </tr>
+        <tr>
+          <td><code>&lt;&gt; </code></td>
+          <td><code>NOT EQUAL TO</code></td>
+        </tr>
+      </table>
+
+      <h5>EXAMPLES:</h5>
+      <table>
+        <tr>
+          <td><code> 1 =5-4 </code></td>
+          <td><code>result true (-1)</code></td>
+        </tr>
+        <tr>
+          <td><code> 14&gt;66 </code></td>
+          <td><code>result false (0)</code></td>
+        </tr>
+        <tr>
+          <td><code> 15&gt;=15 </code></td>
+          <td><code>result true (-1)</code></td>
+        </tr>
+      </table>
+
+      <p>
+        Relational operators can be used to compare strings. For comparison
+        purposes, the letters of the alphabet have the order A&lt;B&lt;C&lt;D,
+        etc. Strings are compared by evaluating the relationship between
+        corresponding characters from left to right (see
+        <a href="../Chapter_1/page_016.html#String">String Operations</a>).
+      </p>
+
+      <h5>EXAMPLES:</h5>
+
+      <table>
+        <tr>
+          <td><code> "A" &lt; "B" </code></td>
+          <td><code>result true (-1)</code></td>
+        </tr>
+        <tr>
+          <td><code> "X" = "YY" </code></td>
+          <td><code>result false (0)</code></td>
+        </tr>
+        <tr>
+          <td><code> BB$ &lt;&gt; CC$ </code></td>
+        </tr>
+      </table>
+
+      <p>
+        Numeric data items can only be compared (or assigned) to other numeric
+        items. The same is true when comparing strings, otherwise the BASIC
+        error message
+        <b
+          ><a href="../Appendices/page_400.html#type_mismatch"
+            >?TYPE MISMATCH</a
+          ></b
+        >
+        will occur. Numeric operands are compared by first converting the values
+        of either or both operands from integer to floating-point form, as
+        necessary. Then the relationship of the floating- point values is
+        evaluated to give a true/false result.
+      </p>
+
+      <p>
+        At the end of all comparisons, you get an integer no matter what data
+        type the operand is (even if both are strings). Because of this, a
+        comparison of two operands can be used as an operand in performing
+        calculations. The result will be - 1 or 0 and can be used as anything
+        but a divisor, since division by zero is illegal.
+      </p>
+
+      <h3><a name="Logical">LOGICAL OPERATORS</a></h3>
+
+      <p>
+        The logical operators (<a href="../Chapter_2/page_035.html#and">AND</a>,
+        <a href="../Chapter_2/page_068.html#or">OR</a>,
+        <a href="../Chapter_2/page_063.html#not">NOT</a>) can be used to modify
+        the meanings of the relational operators or to produce an arithmetic
+        result. Logical operators can produce results other than -1 and 0,
+        though any nonzero result is considered true when testing for a
+        true/false condition.
+      </p>
+
+      <p>
+        The logical operators (sometimes called Boolean operators) can also be
+        used to perform logic operations on individual binary digits (bits) in
+        two operands. But when you're using the
+        <a href="../Chapter_2/page_063.html#not">NOT</a> operator, the operation
+        is performed only on the single operand to the right. The operands must
+        be in the integer range of values (-32768 to +32767) (floating-point
+        numbers are converted to integers) and logical operations give an
+        integer result.
+      </p>
+
+      <p>
+        Logical operations are performed bit-by-corresponding-bit on the two
+        operands. The logical
+        <a href="../Chapter_2/page_035.html#and">AND</a> produces a bit result
+        of 1 only if both operand bits are 1. The logical
+        <a href="../Chapter_2/page_068.html#or">OR</a> produces a bit result of
+        I if either operand bit is 1. The logical
+        <a href="../Chapter_2/page_063.html#not">NOT</a> is the opposite value
+        of each bit as a single operand. In other words, it's really saying, "if
+        it's <a href="../Chapter_2/page_063.html#not">NOT</a> 1 then it is 0. If
+        it's <a href="../Chapter_2/page_063.html#not">NOT</a> 0 then it is 1."
+      </p>
+
+      <p>
+        The exclusive OR (XOR) doesn't have a logical operator but it is
+        performed as part of the
+        <a href="../Chapter_2/page_092.html#wait">WAIT</a> statement. Exclusive
+        OR means that if the bits of two operands are equal then the result is 0
+        otherwise the result is 1.
+      </p>
+
+      <p>
+        Logical operations are defined by groups of statements which, taken
+        together, constitute a Boolean "truth table" as shown in
+        <a href="page_014.html#1-2">Table 1-2</a>.
+      </p>
+
+      <p></p>
+      <table>
+        <caption>
+          <a name="1-2">Table 1-2. Boolean Truth Table</a>
+        </caption>
+        <tr>
+          <td>
+            <p>
+              The <a href="../Chapter_2/page_035.html#and">AND</a> operation
+              results in a 1 only if both bits are 1:
+            </p>
+            <p align="center">
+              1 AND 1 = 1<br />
+              0 AND 1 = 0<br />
+              1 AND 0 = 0<br />
+              0 AND 0 = 0 <br />
+            </p>
+
+            <p>
+              The <a href="../Chapter_2/page_068.html#or">OR</a> operation
+              results in a 1 if either bit is 1:
+            </p>
+            <p align="center">
+              1 OR 1 = 1<br />
+              0 OR 1 = 1<br />
+              0 OR 0 = 1<br />
+              0 OR 0 = 0<br />
+            </p>
+
+            <p>
+              The <a href="../Chapter_2/page_063.html#not">NOT</a> operation
+              logically complements each bit:
+            </p>
+            <p align="center">
+              NOT 1 = 0<br />
+              NOT 0 = 1<br />
+            </p>
+
+            <p>
+              The exclusive OR (XOR) is part of the
+              <a href="../Chapter_2/page_092.html#wait">WAIT</a> statement!
+            </p>
+            <p align="center">
+              1 XOR 1 = 0<br />
+              1 XOR 0 = 1<br />
+              0 XOR 1 = 1<br />
+              0 XOR 0 = 0<br />
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        The logical operators <a href="../Chapter_2/page_035.html#and">AND</a>,
+        <a href="../Chapter_2/page_068.html#or">OR</a> and
+        <a href="../Chapter_2/page_063.html#not">NOT</a> specify a Boolean
+        arithmetic operation to be performed on the two operand expressions on
+        either side of the operator. In the case of
+        <a href="../Chapter_2/page_063.html#not">NOT</a>, ONLY the operand on
+        the RIGHT is considered. Logical operations (or Boolean arithmetic)
+        aren't performed until all arithmetic and relational operations in an
+        expression have been completed.
+      </p>
+
+      <h5>EXAMPLES:</h5>
+
+      <table>
+        <tr>
+          <td><code> IF A=100 AND B=100 THEN 10 </code></td>
+          <td>
+            <code
+              >(if both A and B have a value of 100 then the result is
+              true)</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code> A=96 AND 32: PRINT A </code></td>
+          <td><code>(A = 32)</code></td>
+        </tr>
+        <tr>
+          <td><code> IF A=100 OR B=100 THEN 20 </code></td>
+          <td><code>(if A or B is 100 then the result is true)</code></td>
+        </tr>
+        <tr>
+          <td><code> A=64 OR 32: PRINT A </code></td>
+          <td><code>(A = 96)</code></td>
+        </tr>
+        <tr>
+          <td><code> IF NOT X&lt;Y THEN 30 </code></td>
+          <td><code>(if X&gt;=Y the result is true)</code></td>
+        </tr>
+        <tr>
+          <td><code> X= NOT 96 </code></td>
+          <td><code>(result is -97 (two's complement))</code></td>
+        </tr>
+      </table>
+
+      <h3><a name="Hierarchy">HIERARCHY OF OPERATIONS</a></h3>
+
+      <p>
+        All expressions perform the different types of operations according to a
+        fixed hierarchy. In other words, certain operations are performed be-
+        fore other operations. The normal order of operations can be modified by
+        enclosing two or more operands within parentheses ( ), creating a
+        "subexpression." The parts of an expression enclosed in parentheses will
+        be reduced to a single value before working on parts outside the
+        parentheses.
+      </p>
+
+      <p>
+        When you use parentheses in expressions, they must be paired so that you
+        always have an equal number of left and right parentheses. Otherwise,
+        the BASIC error message
+        <b
+          ><a href="../Appendices/page_400.html#syntax_error"
+            >?SYNTAX ERROR</a
+          ></b
+        >
+        will appear.
+      </p>
+
+      <p>
+        Expressions which have operands inside parentheses may themselves be
+        enclosed in parentheses, forming complex expressions of multiple levels.
+        This is called nesting. Parentheses can be nested in expressions to a
+        maximum depth of ten levels-ten matching sets of parentheses. The
+        inner-most expression has its operations performed first. Some examples
+        of expressions are:
+      </p>
+
+      <pre>
+        <code class="language-basic">
+          A+B
+          C^(D+E)/2
+          ((X-C^(D+E)/2)*10)+1
+          GG$&gt;HH$
+          JJ$+&quot;MORE&quot;
+          K%=1 AND M&lt;&gt;X
+          K%=2 OR (A=B AND M&lt;X)
+          NOT (D=E)
+        </code>
+      </pre>
+      <p>
+        The BASIC Interpreter will normally perform operations on expressions by
+        performing arithmetic operations first, then relational operations, and
+        logical operations lost. Both arithmetic and logical operators have an
+        order of precedence (or hierarchy of operations) within themselves. On
+        the other hand, relational operators do not have an order of precedence
+        and will be performed as the expression is evaluated from left to right.
+      </p>
+
+      <p>
+        If all remaining operators in an expression have the same level of
+        precedence then operations happen from left to right. When performing
+        operations on expressions within parentheses, the normal order of
+        precedence is maintained. The hierarchy of arithmetic and logical
+        operations is shown in Table 1-3 from first to last in order of
+        precedence.
+      </p>
+
+      <table>
+        <caption>
+          <a name="1-3"
+            >Table 1-3. Hierarchy of Operations Performed on Expressions</a
+          >
+        </caption>
+        <tr>
+          <th>OPERATOR</th>
+          <th>DESCRIPTION</th>
+          <th>EXAMPLE</th>
+        </tr>
+        <tr>
+          <td><code>^</code></td>
+          <td><code>Exponentiation</code></td>
+          <td><code>BASE ^ EXP</code></td>
+        </tr>
+        <tr>
+          <td><code>-</code></td>
+          <td><code>Negation (Unary Minus)</code></td>
+          <td><code>-A</code></td>
+        </tr>
+        <tr>
+          <td><code>*</code></td>
+          <td><code>Multiplication</code></td>
+          <td><code>AB * CD</code></td>
+        </tr>
+        <tr>
+          <td><code>/</code></td>
+          <td><code>Division</code></td>
+          <td><code>EF / GH</code></td>
+        </tr>
+        <tr>
+          <td><code>+</code></td>
+          <td><code>Addition</code></td>
+          <td><code>CNT + 2</code></td>
+        </tr>
+        <tr>
+          <td><code>-</code></td>
+          <td><code>Subtraction</code></td>
+          <td><code>JK - PQ</code></td>
+        </tr>
+        <tr>
+          <td><code>&gt; = &lt;</code></td>
+          <td><code>Relational Operations</code></td>
+          <td><code>A &lt;= B</code></td>
+        </tr>
+        <tr>
+          <td><code>NOT</code></td>
+          <td>
+            <code>
+              Logical NOT <br />
+              (Integer Two's Complement)
+            </code>
+          </td>
+          <td><code>NOT K%</code></td>
+        </tr>
+        <tr>
+          <td><code>AND</code></td>
+          <td><code>Logical AND</code></td>
+          <td><code>JK AND 128</code></td>
+        </tr>
+        <tr>
+          <td><code>OR</code></td>
+          <td><code>Logical OR</code></td>
+          <td><code>PQ OR 15</code></td>
+        </tr>
+      </table>
+
+      <h3><a name="String">STRING OPERATIONS</a></h3>
+
+      <p>
+        Strings are compared using the same relational operators (=, &lt;&gt;,
+        &lt;=, &gt;=, &lt;, &gt;) that are used for comparing numbers. String
+        comparisons are mode by taking one character at a time (left-to-right)
+        from each string and evaluating each character code position from the
+        PET/ CBM character set. If the character codes are the same, the
+        characters are equal. If the character codes differ, the character with
+        the lower code number is lower in the character set. The comparison
+        stops when the end of either string is reached. All other things being
+        equal, the shorter string is considered less than the longer string.
+        Leading or trailing blanks ARE significant.
+      </p>
+      <p>
+        Regardless of the data types, at the end of all comparisons you get an
+        integer result. This is true even if both operands are strings. Because
+        of this a comparison of two string operands can be used as an operand in
+        performing calculations. The result will be - 1 or 0 (true or false) and
+        can be used as anything but a divisor since division by zero is illegal.
+      </p>
+
+      <h3><a name="String">STRING EXPRESSIONS</a></h3>
+
+      <p>
+        Expressions are treated as if an implied "&lt;&gt;0" follows them. This
+        means that if an expression is true then the next BASIC statements on.
+        the same program line are executed. If the expression is false the rest
+        of the line is ignored and the next line in the program is executed.
+      </p>
+      <p>
+        Just as with numbers, you can also perform operations on string
+        variables. The only string arithmetic operator recognized by CBM BASIC
+        is the plus sign (+) which is used to perform concatenation of strings.
+        When strings are concatenated, the string on the right of the plus sign
+        is appended to the string on the left, forming a third string as a
+        result. The result can be printed immediately, used in a comparison, or
+        assigned to a variable name. If a string data item is compared with (or
+        set equal to) a numeric item, or vice-versa, the BASIC error message
+        <b
+          ><a href="../Appendices/page_400.html#type_mismatch"
+            >?TYPE MISMATCH</a
+          ></b
+        >
+        will occur. Some examples of string expressions and concatenation are:
+      </p>
+
+      <pre>
+
+<code class="language-basic">
+10 A$="FILE": B$="NAME"
+20 NAM$=A$+B$           (gives the string: FILENAME)
+30 RES$="NEW "+A$+B$    (gives the string: NEW FILENAME)
+            ^
+            |  +-----------------+
+            +--+ Note space here.|
+              +-----------------+
+</code>
+</pre>
+
+      <h2><a name="Programming">PROGRAMMING TECHNIQUES</a></h2>
+
+      <h3><a name="Data">DATA CONVERSIONS</a></h3>
+
+      <p>
+        When necessary, the CBM BASIC Interpreter will convert a numeric data
+        item from an integer to floating-point. or vice-versa, according to the
+        following rules:
+      </p>
+
+      <ul>
+        <li>
+          All arithmetic and relational operations are performed in floating
+          point format. Integers are converted to floating-point form for
+          evaluation of the expression, and the result is converted back to
+          integer. logical operations convert their operands to integers an
+          return an integer result.
+        </li>
+        <li>
+          If a numeric variable name of one type is set equal to a numeric data
+          item of a different type, the number will be converted and stored as
+          the data type declared in the variable name.
+        </li>
+        <li>
+          When a floating-point value is converted to an integer, the fractional
+          portion is truncated (eliminated) and the integer result is less than
+          or equal to the floating-point value. If the result is outside the
+          range of +32767 thru -32768, the BASIC error message
+          <b
+            ><a href="../Appendices/page_400.html#illegal_quantity"
+              >?ILLEGAL QUANTITY</a
+            ></b
+          >
+          will occur.
+        </li>
+      </ul>
+
+      <h3><a name="Using">USING THE INPUT STATEMENT</a></h3>
+
+      <p>
+        Now that you know what variables are, let's take that information an put
+        it together with the
+        <a href="../Chapter_2/page_054.html#input">INPUT</a> statement for some
+        practical programming applications.
+      </p>
+      <p>
+        In our first example, you can think of a variable as a "storage
+        compartment" where the Commodore 64 stores the user's response to your
+        prompt question. To write a program which asks the user to type in a
+        name, you might assign the variable N$ to the name typed in. Now every
+        time you PRINT N$ in your program, the Commodore 64 will automatically
+        <a href="../Chapter_2/page_070.html#print">PRINT</a> the name that the
+        user typed in.
+      </p>
+      <p>
+        Type the word <a href="../Chapter_2/page_062.html#new">NEW</a> on your
+        Commodore 64. Hit the <kbd>&lt;RETURN&gt;</kbd> key and try this
+        example:
+      </p>
+
+      <pre>
+<code class="language-basic">
+     10 PRINT"YOUR NAME": INPUT N$
+     20 PRINT"HELLO",N$
+</code>
+</pre>
+
+      <p>
+        In this example you used N to remind yourself that this variable stands
+        for "NAME". The dollar sign ($) is used to tell the computer that you're
+        using a string variable. It is important to differentiate between the
+        two types of variables:
+      </p>
+
+      <ol>
+        <li>NUMERIC</li>
+        <li>STRING</li>
+      </ol>
+
+      <p>
+        You probably remember from the earlier sections that numeric variables
+        are used to store number values such as 1, 100, 4000, etc. A numeric
+        variable can be a single letter (A), any two letters (AB), a letter and
+        a number (AI), or two letters and a number (AB1). You can save memory
+        space by using shorter variables. Another helpful hint is to use letters
+        and numbers for different categories in the same program (AI, A2, A3).
+        Also, if you want whole numbers for an answer instead of numbers with
+        decimal points, all you have to do is put a percent sign (%) at the end
+        of your variable name (AB%, AI%, etc.) Now let's look at a few examples
+        that use different types of variables and expressions with the
+        <a href="../Chapter_2/page_054.html#input">INPUT</a> statement.
+      </p>
+
+      <pre>
+<code class="language-basic">
+      10 PRINT"ENTER A NUMBER": INPUT A
+      20 PRINT A
+   
+      10 PRINT"ENTER A WORD": INPUT A$
+      20 PRINT A$
+   
+      10 PRINT"ENTER A NUMBER": INPUT A
+      20 PRINT A "TIMES 5 EQUALS" A*5
+</code>
+ </pre>
+      <div class="alert">
+        <b>NOTE</b>: Example 3 shows that MESSAGES or PROMPTS are inside the
+        quotation marks (" ") while the variables are outside. Notice, too, that
+        in line 20 the variable A was printed first, then the message "TIMES 5
+        EQUALS", and then the calculation, multiply variable A by 5 (A*5).
+      </div>
+
+      <p>
+        Calculations are important in most programs. You have a choice of using
+        "actual numbers" or variables when doing calculations, but if you're
+        working with numbers supplied by a user you must use numeric variables.
+        Begin by asking the user to type in two numbers like this:
+      </p>
+
+      <pre>
+    <code class="language-basic">10 PRINT"TYPE 2 NUMBERS": INPUT A: INPUT B</code>
+ </pre>
+
+      <p>
+        In this example you used N to remind yourself that this variable stands
+        for "NAME". The dollar sign ($) is used to tell the computer that you're
+        using a string variable. It is important to differentiate between the
+        two types of variables:
+      </p>
+
+      <ol>
+        <li>NUMERIC</li>
+        <li>STRING</li>
+      </ol>
+
+      <p>
+        You probably remember from the earlier sections that numeric variables
+        are used to store number values such as 1, 100, 4000, etc. A numeric
+        variable can be a single letter (A), any two letters (AB), a letter and
+        a number (AI), or two letters and a number (AB1). You can save memory
+        space by using shorter variables. Another helpful hint is to use letters
+        and numbers for different categories in the same program (AI, A2, A3).
+        Also, if you want whole numbers for an answer instead of numbers with
+        decimal points, all you have to do is put a percent sign (%) at the end
+        of your variable name (AB%, AI%, etc.) Now let's look at a few examples
+        that use different types of variables and expressions with the
+        <a href="../Chapter_2/page_054.html#input">INPUT</a> statement.
+      </p>
+
+      <pre>
+<code class="language-basic">
+      10 PRINT"ENTER A NUMBER": INPUT A
+      20 PRINT A
+   
+      10 PRINT"ENTER A WORD": INPUT A$
+      20 PRINT A$
+   
+      10 PRINT"ENTER A NUMBER": INPUT A
+      20 PRINT A "TIMES 5 EQUALS" A*5
+</code>
+ </pre>
+
+      <div class="alert">
+        <b>NOTE</b>: Example 3 shows that MESSAGES or PROMPTS are inside the
+        quotation marks (" ") while the variables are outside. Notice, too, that
+        in line 20 the variable A was printed first, then the message "TIMES 5
+        EQUALS", and then the calculation, multiply variable A by 5 (A*5).
+      </div>
+
+      <p>
+        Calculations are important in most programs. You have a choice of using
+        "actual numbers" or variables when doing calculations, but if you're
+        working with numbers supplied by a user you must use numeric variables.
+        Begin by asking the user to type in two numbers like this:
+      </p>
+
+      <pre>
+    <code class="language-basic">10 PRINT"TYPE 2 NUMBERS": INPUT A: INPUT B</code>
+ </pre>
+
+      <p><b>INCOME/EXPENSE BUDGET EXAMPLE</b></p>
+      <pre>
+<code class="language-basic">
+  5 PRINT"{CLEAR}"
+  10 PRINT"MONTHLY INCOME":INPUT IN
+  20 PRINT
+  30 PRINT"EXPENSE CATEGORY 1":INPUT E1$
+  40 PRINT"EXPENSE AMOUNT":INPUT E1
+  50 PRINT
+  60 PRINT"EXPENSE CATEGORY 2":INPUT E2$
+  70 PRINT"EXPENSE AMOUNT":INPUT E2
+  80 PRINT
+  90 PRINT"EXPENSE CATEGORY 3":INPUT E3$
+  100 PRINT"EXPENSE AMOUNT":INPUT E3
+  110 PRINT"{CLEAR}"
+  120 E=E1+E2+E3
+  130 EP=E/IN
+  140 PRINT"MONTHLY INCOME: $"IN
+  150 PRINT"TOTAL EXPENSES: $"E
+  160 PRINT"BALANCE EQUALS: $"IN-E
+  170 PRINT
+  180 PRINT E1$"="(E1/E)*100"% OF TOTAL EXPENSES"
+  190 PRINT E2$"="(E2/E)*100"% OF TOTAL EXPENSES"
+  200 PRINT E3$"="(E3/E)*100"% OF TOTAL EXPENSES"
+  210 PRINT
+  220 PRINT"YOUR EXPENSES="EP*100"% OF YOUR TOTAL INCOME"
+  230 FORX=1TO5000:NEXT:PRINT
+  240 PRINT"REPEAT? (Y OR N)":INPUT Y$:IF Y$="Y"THEN 5
+  250 PRINT"{CLEAR}":END
+</code>
+</pre>
+
+      <div class="alert">
+        <b>NOTE:</b> IN can NOT = 0, and E1, E2, E3 can NOT all be 0 at the same
+        time.
+      </div>
+
+      <table>
+        <caption>
+          LINE-BY-LINE EXPLANATION OF INCOME/EXPENSE BUDGET EXAMPLE
+        </caption>
+        <tr>
+          <th>Line(s)</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Clears the screen.</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>PRINT/INPUT statement.</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>Inserts blank line.</td>
+        </tr>
+        <tr>
+          <td>30</td>
+          <td>Expense Category 1 = E1$.</td>
+        </tr>
+        <tr>
+          <td>40</td>
+          <td>Expense Amount = E1.</td>
+        </tr>
+        <tr>
+          <td>50</td>
+          <td>Inserts blank line.</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>Expense Category 2 = E2.</td>
+        </tr>
+        <tr>
+          <td>70</td>
+          <td>Expense Amount 2 = E2.</td>
+        </tr>
+        <tr>
+          <td>80</td>
+          <td>Inserts blank line.</td>
+        </tr>
+        <tr>
+          <td>90</td>
+          <td>Expense Category 3 = E3.</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Expense Amount 3 = E3.</td>
+        </tr>
+        <tr>
+          <td>110</td>
+          <td>Clears the screen.</td>
+        </tr>
+        <tr>
+          <td>120</td>
+          <td>Add Expense Amounts = E.</td>
+        </tr>
+        <tr>
+          <td>130</td>
+          <td>Calculate Expense/income%.</td>
+        </tr>
+        <tr>
+          <td>140</td>
+          <td>Display Income.</td>
+        </tr>
+        <tr>
+          <td>150</td>
+          <td>Display Total Expenses.</td>
+        </tr>
+        <tr>
+          <td>160</td>
+          <td>Display Incomes - Expenses.</td>
+        </tr>
+        <tr>
+          <td>170</td>
+          <td>Inserts blank line.</td>
+        </tr>
+        <tr>
+          <td>180-200</td>
+          <td>
+            lines 180-200 calculate % each expense amount is of total expenses.
+          </td>
+        </tr>
+        <tr>
+          <td>210</td>
+          <td>Inserts blank line.</td>
+        </tr>
+        <tr>
+          <td>220</td>
+          <td>Display E/IN %.</td>
+        </tr>
+        <tr>
+          <td>230</td>
+          <td>Time delay loop.</td>
+        </tr>
+      </table>
+      <p>
+        Now multiply those two numbers together to create a new variable C as
+        shown in line 20 below:
+      </p>
+
+      <pre>
+     <code class="language-basic">20 C=A*B</code>
+  </pre>
+      <p>
+        To <a href="../Chapter_2/page_070.html#print">PRINT</a> the result as a
+        message type
+      </p>
+      <pre>
+    <code class="language-basic">30 PRINT A "TIMES" B "EQUALS" C</code>
+  </pre>
+      <p>
+        Enter these 3 lines and
+        <a href="../Chapter_2/page_081.html#run">RUN</a> the program. Notice
+        that the messages are inside the quotes while the variables are not.
+      </p>
+
+      <p>
+        Now let's say that you wanted a dollar sign ($) in front of the number
+        represented by variable C. The $ must be
+        <a href="../Chapter_2/page_070.html#print">PRINTed</a> inside quotes and
+        in front of variable C. To add the $ to your program hit the
+        <kbd>&lt;RUN/STOP&gt;</kbd> and <kbd>&lt;RESTORE&gt;</kbd> keys. Now
+        type in line 40 as follows:
+      </p>
+
+      <pre>
+    <code class="language-basic">40 PRINT"$" C</code>
+   </pre>
+
+      <p>
+        Now hit <kbd>&lt;RETURN&gt;</kbd>, type
+        <a href="../Chapter_2/page_081.html#run">RUN</a> and hit
+        <kbd>&lt;RETURN&gt;</kbd> again. The dollar sign goes in quotes because
+        the variable C only represents a number and can't contain a $. If the
+        number represented by C was 100 then the Commodore 64 screen would
+        display $ 100. But, if you tried to PRINT $C without using the quotes,
+        you would get a
+        <b
+          ><a href="../Appendices/page_400.html#syntax_error"
+            >?SYNTAX ERROR</a
+          ></b
+        >
+        message.
+      </p>
+
+      <p>
+        One last tip about $$$: You can create a variable that represents a
+        dollar sign which you can then substitute for the $ when you want to use
+        it with numeric variables. For example:
+      </p>
+
+      <pre>
+    <code class="language-basic">10 Z$="$"</code>
+   </pre>
+
+      <p>
+        Now whenever you need a dollar sign you can use the string variable Z$.
+        Try this:
+      </p>
+
+      <pre>
+    <code class="language-basic">
+      10 Z$="$": INPUT A
+      20 PRINT Z$A<
+    </code>
+   </pre>
+
+      <p>
+        Line 10 defines the $ as a string variable called Z$, and then
+        <a href="../Chapter_2/page_054.html#input">INPUTs</a> a number called A.
+        Line 20 <a href="../Chapter_2/page_070.html#print">PRINTs</a> Z$ ($)
+        next to A (number).
+      </p>
+
+      <p>
+        You'll probably find that it's easier to assign certain characters, like
+        dollar signs, to a string variable than to type "$" every time you want
+        to calculate dollars or other items which require " " like %.
+      </p>
+
+      <h3><a name="Using">USING THE GET STATEMENT</a></h3>
+
+      <p>
+        Most simple programs use the
+        <a href="../Chapter_2/page_054.html#input">INPUT</a> statement to get
+        data from the person operating the computer. When you're dealing with
+        more complex needs, like protection from typing errors, the
+        <a href="../Chapter_2/page_049.html#get">GET</a> statement gives you
+        more flexibility and your program more "intelligence." This section
+        shows you how to use the
+        <a href="../Chapter_2/page_049.html#get">GET</a> statement to add some
+        special screen editing features to your programs.
+      </p>
+
+      <p>
+        The Commodore 64 has a keyboard buffer that holds up to 10 characters.
+        This means that if the computer is busy doing some operation and it's
+        not reading the keyboard, you can still type in up to 10 characters,
+        which will be used as soon as the Commodore 64 finishes what it was
+        doing. To demonstrate this, type in this program on your Commodore 64:
+      </p>
+
+      <pre>
+        <code class="language-basic">
+          NEW
+          10 TI$="000000"
+          20 IF TI$ &lt; "000015" THEN 20
+        </code>
+     </pre>
+      <p>
+        Now type <a href="../Chapter_2/page_081.html#run">RUN</a>, hit
+        <kbd>d&lt;RETURN&gt;</kbd> and while the program is RUNning type in the
+        word HELLO.
+      </p>
+
+      <p>
+        Notice that nothing happened for about 15 seconds when the program
+        started. Only then did the message HELLO appear on the screen.
+      </p>
+
+      <p>
+        Imagine standing in line for a movie. The first person in the line is
+        the first to get a ticket and leave the line. The last person in line is
+        last for a ticket. The
+        <a href="../Chapter_2/page_049.html#get">GET</a> statement acts like a
+        ticket taker. First it looks to see if there are any characters "in
+        line." In other words have any keys been typed. If the answer is yes
+        then that character gets placed in the appropriate variable. If no key
+        was pressed then an empty value is assigned to a variable,
+      </p>
+
+      <p>
+        At this point it's important to note that if you try to put more than 10
+        characters into the buffer at one time, all those over the 10th
+        character will be lost.
+      </p>
+
+      <p>
+        Since the <a href="../Chapter_2/page_049.html#get">GET</a> statement
+        will keep going even when no character is typed, it is often necessary
+        to put the <a href="../Chapter_2/page_049.html#get">GET</a> statement
+        into a loop so that it will have to wait until someone hits a key or
+        until a character is received through your program. Below is the
+        recommended form for the
+        <a href="../Chapter_2/page_049.html#get">GET</a> statement. Type
+        <a href="../Chapter_2/page_062.html#new">NEW</a> to erase your previous
+        program.
+      </p>
+
+      <pre>
+        <code class="language-basic">10 GET A$: IF A$ ="" THEN 10</code>
+     </pre>
+
+      <p>
+        Notice that there is NO SPACE between the quote marks("") on this line.
+        This indicates an empty value and sends the program back to the
+        <a href="../Chapter_2/page_049.html#get">GET</a> statement in a
+        continuous loop until someone hits a key on the computer. Once a key is
+        hit the program will continue with the line following line 10. Add this
+        line to your program:
+      </p>
+
+      <pre>
+      <code class="language-basic">100 PRINT A$;: GOTO 10</code>
+     </pre>
+
+      <p>
+        Now <a href="../Chapter_2/page_081.html#run">RUN</a> the program. Notice
+        that no cursor appears on the screen, but any character you type will be
+        printed in the screen. This 2-line program can be turned into part of a
+        screen editor program as shown below.
+      </p>
+
+      <p>
+        There are many things you can do with a screen editor. You can have a
+        flashing cursor. You can keep certain keys like
+        <kbd>&lt;CLR/HOME&gt;</kbd> from accidentally erasing the whole screen.
+        You might even want to be able to use your function keys to represent
+        whole words or phrases. And speaking of function keys, the following
+        program lines give each function key a special purpose. Remember this is
+        only the beginning of a program that you can customize for your needs.
+      </p>
+
+      <pre>
+        <code class="language-basic">
+          20 IF A$ = CHR$(133) THEN POKE 53280,8: GOTO 10
+          30 IF A$ = CHR$(134) THEN POKE 53281,4: GOTO 10
+          40 IF A$ = CHR$(135) THEN A$="DEAR SIR:"+CHR$(13)
+          50 IF A$ = CHR$(136) THEN A$="SINCERELY,"+CHR$(13)
+        </code>
+     </pre>
+
+      <p>
+        The <a href="../Chapter_2/page_038.html#chr$">CHR$</a> numbers in
+        parentheses come from the
+        <a href="../Chapter_2/page_038.html#chr$">CHR$</a> code chart in
+        Appendix C. The chart lists a different number for each character. The
+        four function keys are set up to perform the tasks represented by the
+        instructions that follow the word
+        <a href="../Chapter_2/page_052.html#if">THEN</a> in each line. By
+        changing the <a href="../Chapter_2/page_038.html#chr$">CHR$</a> number
+        inside each set of parentheses you can designate different keys.
+        Different instructions would be performed if you changed the information
+        after the <a href="../Chapter_2/page_052.html#if">THEN</a> statement.
+      </p>
+
+      <h3><a name="How">HOW TO CRUNCH BASIC PROGRAMS</a></h3>
+
+      <p>
+        You can pack more instructions - and power - into your BASIC programs by
+        making each program as short as possible. This process of shortening
+        programs is called "crunching."
+      </p>
+
+      <p>
+        Crunching programs lets you squeeze the maximum possible number of
+        instructions into your program. It also helps you reduce the size of
+        programs which might not otherwise run in a given size; and if you're
+        writing a program which requires the input of data such as inventory
+        items, numbers or text, a short program will leave more memory space
+        free to hold data.
+      </p>
+
+      <h3>ABBREVIATING KEYWORDS</h3>
+
+      <p>
+        A list of keyword abbreviations is given in Appendix A. This is helpful
+        when you program because you can actually crowd more information on each
+        line using abbreviations. The most frequently used abbreviation is the
+        question mark (?) which is the BASIC abbreviation for the
+        <a href="../Chapter_2/page_070.html#print">PRINT</a> command. However,
+        if you <a href="../Chapter_2/page_058.html#list">LIST</a> a program that
+        has abbreviations, the Commodore 64 will automatically print out the
+        listing with the full-length keywords. If any program line exceeds 80
+        characters (2 lines on the screen) with the keywords unabbreviated, and
+        you want to change it, you will have to re-enter that line with the
+        abbreviations before saving the program.
+        <a href="../Chapter_2/page_081.html#save">SAVEing</a> a program
+        incorporates the keywords without inflating any lines because BASIC
+        keywords are tokenized by the Commodore 64. Usually, abbreviations are
+        added after a program is written and it isn't going to be
+        <a href="../Chapter_2/page_058.html#list">LISTed</a> any more before
+        <a href="../Chapter_2/page_081.html#save">SAVEing</a>.
+      </p>
+
+      <h3>SHORTENING PROGRAM LINE NUMBERS</h3>
+
+      <p>
+        Most programmers start their programs at line 100 and number each fine
+        at intervals of 10 (i.e., 100, 110, 120). This allows extra lines of
+        instruction to be added (111, 112, etc.) as the program is developed.
+        One means of crunching the program after it is completed is to change
+        the fine numbers to the lowest numbers possible (i.e., 1, 2, 3) because
+        longer line numbers take more memory than shorter numbers when
+        referenced by <a href="../Chapter_2/page_052.html#goto">GOTO</a> and
+        <a href="../Chapter_2/page_051.html#gosub">GOSUB</a> statements. For
+        instance, the number 100 uses 3 bytes of memory (one for each number)
+        while the number I uses only 1 byte.
+      </p>
+
+      <h3>PUTTING MULTIPLE INSTRUCTIONS ON EACH LINE</h3>
+
+      <p>
+        You can put more than one instruction on each numbered line in your
+        program by separating them by a colon. The only limitation is that all
+        the instructions on each line, including colons, should not exceed the
+        standard 80-character line length. Here is an example of two programs,
+        before and after crunching:
+      </p>
+
+      <table>
+        <tr>
+          <th>
+            BEFORE CRUNCHING:
+          </th>
+          <th>AFTER CRUNCHING:</th>
+        </tr>
+        <tr>
+          <td>
+            <pre>
+      10 PRINT"HELLO...";            
+      20 FOR T=1 TO 500: NEXT           
+      30 PRINT"HELLO, AGAIN..."
+      40 GOTO 10
+     </pre
+            >
+          </td>
+          <td>
+            <pre>
+     10 PRINT "HELLO...";:FORT=1TO500:NEXT:
+     PRINT"HELLO, AGAIN...":GOTO10
+     </pre
+            >
+          </td>
+        </tr>
+      </table>
+
+      <h3>REMOVING REM STATEMENTS</h3>
+
+      <p>
+        <a href="../Chapter_2/page_077.html#rem">REM</a> statements are helpful
+        in reminding yourself-or showing other programmers - what a particular
+        section of a program is doing. However, when the program is completed
+        and ready to use, you probably won't need those
+        <a href="../Chapter_2/page_077.html#rem">REM</a> statements anymore and
+        you can save quite a bit of space by removing the
+        <a href="../Chapter_2/page_077.html#rem">REM</a> statements. If you plan
+        to revise or study the program structure in the future, it's a good idea
+        to keep a copy on file with the
+        <a href="../Chapter_2/page_077.html#rem">REM</a> statements intact.
+      </p>
+
+      <h3>USING VARIABLES</h3>
+
+      <p>
+        If a number, word or sentence is used repeatedly in your program it's
+        usually best to define those long words or numbers with a one or two
+        letter variable. Numbers can be defined as single letters. Words and
+        sentences can be defined as string variables using a letter and dollar
+        sign. Here's one example:
+      </p>
+
+      <table>
+        <tr>
+          <th>
+            BEFORE CRUNCHING:
+          </th>
+          <th>AFTER CRUNCHING:</th>
+        </tr>
+        <tr>
+          <td>
+            <pre>
+ 10 POKE 54296,15                  
+ 20 POKE 54276,33                  
+ 30 POKE 54273,10                  
+ 40 POKE 54273,40                  
+ 50 POKE 54273,70
+ 60 POKE 54296,0
+</pre
+            >
+          </td>
+          <td>
+            <pre>
+10 V=54296:F=54273
+20 POKEV,15:POKE54276,33
+30 POKEF,10:POKEF,40:POKEF,70
+40 POKEV,0
+</pre
+            >
+          </td>
+        </tr>
+      </table>
+
+      <h3>USING READ AND DATA STATEMENTS</h3>
+
+      <p>
+        Large amounts of data can be typed in as one piece of data at a time,
+        over and over again ... or you can print the instructional part of the
+        program ONCE and print all the data to be handled in a long running list
+        called the <a href="../Chapter_2/page_042.html#data">DATA</a> statement.
+        This is especially good for crowding large lists of numbers into a
+        program.
+      </p>
+
+      <h3>USING ARRAYS AND MATRICES</h3>
+
+      <p>
+        Arrays and matrices are similar to
+        <a href="../Chapter_2/page_042.html#data">DATA</a> statements in that
+        long amounts of data can be handled as a list, with the data handling
+        portion of the program drawing from that list, in sequence. Arrays
+        differ in that the list can be multi-dimensional
+      </p>
+
+      <h3>ELIMINATING SPACES</h3>
+
+      <p>
+        One of the easiest ways to reduce the size of your program is to
+        eliminate all the spaces. Although we often include spaces in sample
+        programs to provide clarity, you actually don't need any spaces in your
+        program and will save space if you eliminate them.
+      </p>
+
+      <h4>USING GOSUB ROUTINES</h4>
+
+      <p>
+        If you use a particular line or instruction over and over, it might be
+        wise to <a href="../Chapter_2/page_051.html#gosub">GOSUB</a> to the line
+        from several places in your program, rather than write the whole line or
+        instruction every time you use it.
+      </p>
+
+      <h4>USING TAB AND SPC</h4>
+
+      <p>
+        Instead of
+        <a href="../Chapter_2/page_070.html#print">PRINTing</a> several cursor
+        commands to position a character on the screen, it is often more
+        economical to use the
+        <a href="../Chapter_2/page_088.html#tab">TAB</a> and
+        <a href="../Chapter_2/page_083.html#spc">SPC</a>
+        instructions to position words or characters on the screen.
+      </p>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/jquery-3.4.1.js"></script>
+  </body>
+</html>
