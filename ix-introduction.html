@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C64 Programmer's Reference Guide</title>
+    <link rel="stylesheet" href="assets/main.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="container medium">
+        <a href="#menu" class="menu-link">Menu</a>
+        <nav id="menu" class="offset" role="navigation">
+          <ul>
+            <li><a href="index.html">C=</a></li>
+          </ul>
+        </nav>
+      </div>
+  </div>
+    <div class="container medium">
+      <h2><a name="Introduction">INTRODUCTION</a></h2>
+
+      <p>
+        The <b>COMMODORE 64 PROGRAMMER'S REFERENCE GUIDE</b> has been developed
+        as a working tool and reference source for those of you who want to
+        maximize your use of the built-in capabilities of your
+        <b>COMMODORE 64</b>. This manual contains the information you need for
+        your programs, from the simplest example all the way to the most
+        complex. The <b>PROGRAMMER'S REFERENCE GUIDE</b> is designed so that
+        everyone from the beginning BASIC programmer to the professional
+        experienced in 6502 machine language can get information to develop his
+        or her own creative programs. At the same time this book shows you how
+        clever your <b>COMMODORE 64</b> really is.
+      </p>
+
+      <p>
+        This <b>REFERENCE GUIDE</b> is not designed to teach the BASIC
+        programming language or the 6502 machine language. There is, however, an
+        extensive glossary of terms and a "semi-tutorial" approach to many of
+        the sections in the book. If you don't already have a working knowledge
+        of BASIC and how to use it to program, we suggest that you study the
+        <b>COMMODORE 64 USER'S GUIDE</b> that came with your computer. The
+        <b>USER'S GUIDE</b> gives you an easy to read introduction to the BASIC
+        programming language. If you still have difficulty understanding how to
+        use BASIC then turn to the back of this book (or Appendix N in the
+        <b>USER'S GUIDE</b>) and check out the
+        <a href="Appendices/page_388.html#Bibliography">Bibliography</a>.
+      </p>
+
+      <p>
+        The <b>COMMODORE 64 PROGRAMMER'S REFERENCE GUIDE</b> is just that; a
+        reference. Like most reference books, your ability to apply the
+        information creatively really depends on how much knowledge you have
+        about the subject. In other words if you are a novice programmer you
+        will not be able to use all the facts and figures in this book until you
+        expand your current programming knowledge.
+      </p>
+
+      <p>
+        What you can do with this book is to find a considerable amount of
+        valuable programming reference information written in easy to read,
+        plain English with the programmer's jargon explained. On the other hand
+        the programming professional will find all the information needed to use
+        the capabilities of the <b>COMMODORE 64</b> effectively.
+      </p>
+
+      <h3><a name="What"></a>WHAT'S INCLUDED?</a></h3>
+        
+      <ul>
+      <li>  Our complete "BASIC dictionary" includes Commodore BASIC language
+            commands, statements and functions listed in alphabetical order.
+            We've created a "quick list" which contains all the words and their
+            abbreviations. This is followed by a section containing a more
+            detailed definition of each word along with sample BASIC programs
+            to illustrate how they work.</li>
+      <li>  If you need an introduction to using machine language with BASIC
+            programs our layman's overview will get you started.</li>
+      <li>  A powerful feature of all Commodore computers is called the KERNAL.
+            It helps insure that the programs you write today can also be used
+            on your Commodore computer of tomorrow.</li>
+      <li>  The Input/Output Programming section gives you the opportunity to
+            use your computer to the limit. It describes how to hook-up and use
+            everything from lightpens and joysticks to disk drives, printers,
+            and telecommunication devices called modems.</li>
+      <li>  You can explore the world of SPRITES, programmable characters, and
+            high resolution graphics for the most detailed and advanced animated
+            pictures in the microcomputer industry.</li>
+      <li>  You can also enter the world of music synthesis and create your own
+            songs and sound effects with the best built-in synthesizer available
+            in any personal computer.</li>
+      <li>  If you're an experienced programmer, the soft load language section
+            gives you information about the <b>COMMODORE 64's</b> ability to run CP/M*
+            and high level languages. This is in addition to BASIC.</li>
+      </ul>
+
+      
+      <p>Think of your <b>COMMODORE 64 PROGRAMMER'S REFERENCE GUIDE</b> as a
+      useful tool to help you and you will enjoy the -hours of programming ahead
+      of you.
+      
+      <hr>
+      
+      <small>* CP/M is a registered trademark of Digital Research, Inc.</small>
+
+      <h3><a name="How">HOW TO USE THIS REFERENCE GUIDE</a></h3>
+
+      <p>
+        Throughout this manual certain conventional notations are used to
+        describe the syntax (programming sentence structure) of BASIC commands
+        or statements and to show both the required and optional parts of each
+        BASIC keyword. The rules to use for interpreting statement syntax are as
+        follows:
+      </p>
+
+      <ol>
+        <li>
+          BASIC keywords are shown in capital letters. They must appear where
+          shown in the statement, entered and spelled exactly as shown.
+        </li>
+
+        <li>
+          Items shown within quotation marks (" ") indicate variable data which
+          you must put in. Both the quotation marks and the data inside the
+          quotes must appear where shown in each statement.
+        </li>
+
+        <li>
+          Items inside the square brackets ([ ]) indicate an optional statement
+          parameter. A parameter is a limitation or additional qualifier for
+          your statements. If you use an optional parameter you must supply the
+          data for that optional parameter. In addition, ellipses (...) show
+          that an optional item can be repeated as many times as a programming
+          line allows.
+        </li>
+
+        <li>
+          If an item in the square brackets ([ ]) is UNDERLINED, that means that
+          you MUST use those certain characters in the optional parameters, and
+          they also have to be spelled exactly as shown. 5. Items inside angle
+          brackets (&lt; &gt;) indicate variable data which you provide. While
+          the slash (/) indicates that you must make a choice between two
+          mutually exclusive options.
+        </li>
+      </ol>
+
+      <h3>EXAMPLE OF SYNTAX FORMAT:</h3>
+
+      <code>
+        OPEN&lt;file-num&gt;,&lt;device&gt;[,&lt;address&gt;],["&lt;drive&gt;:&lt;filename&gt;][,&lt;mode&gt;]"
+      </code>
+
+      <h3>EXAMPLES OF ACTUAL STATEMENTS:</h3>
+
+      <pre>
+          10 OPEN 2,8,6,"0:STOCK FOLIO,S,W"
+          20 OPEN 1,1,2,"CHECKBOOK"
+          30 OPEN 3,4
+      </pre>
+
+      <p>
+        When you actually apply the syntax conventions in a practical situation,
+        the sequence of parameters in your statements might not be exactly the
+        same as the sequence shown in syntax examples. The examples are not
+        meant to show every possible sequence. They are intended to present all
+        required and optional parameters.
+      </p>
+
+      <p>
+        Programming examples in this book are shown with blanks separating words
+        and operators for the sake of readability. Normally though, BASIC
+        doesn't require blanks between words unless leaving them out would give
+        you an ambiguous or incorrect syntax.
+      </p>
+
+      <p>
+        Shown below are some examples and descriptions of the symbols used for
+        various statement parameters in the following chapters. The list is not
+        meant to show every possibility, but to give you a better understanding
+        as to how syntax examples are presented.
+      </p>
+
+      <table>
+        <tr>
+          <th>SYMBOL</th>
+          <th>EXAMPLE</th>
+          <th>DESCRIPTION</th>
+        </tr>
+        <tr>
+          <td>&lt;file-num&gt;</td>
+          <td>50</td>
+          <td>A logical file number</td>
+        </tr>
+        <tr>
+          <td>&lt;device&gt;</td>
+          <td>4</td>
+          <td>A hardware device number</td>
+        </tr>
+        <tr>
+          <td>&lt;address&gt;</td>
+          <td>15</td>
+          <td>A serial bus secondary device address number</td>
+        </tr>
+        <tr>
+          <td>&lt;drive&gt;</td>
+          <td>0</td>
+          <td>A physical disk drive number</td>
+        </tr>
+        <tr>
+          <td>&lt;file-name&gt;</td>
+          <td>"TEST.DATA"</td>
+          <td>The name of a data or program file</td>
+        </tr>
+        <tr>
+          <td>&lt;constant&gt;</td>
+          <td>"ABCDEFG"</td>
+          <td>Literal data supplied by the programmer</td>
+        </tr>
+        <tr>
+          <td>&lt;variable&gt;</td>
+          <td>X145</td>
+          <td>Any BASIC data variable name or constant</td>
+        </tr>
+        <tr>
+          <td>&lt;string&gt;</td>
+          <td>AB$</td>
+          <td>Use of a string type variable required</td>
+        </tr>
+        <tr>
+          <td>&lt;number&gt;</td>
+          <td>12345</td>
+          <td>Use of a numeric type variable required</td>
+        </tr>
+        <tr>
+          <td>&lt;line-number&gt;</td>
+          <td>1000</td>
+          <td>An actual program line number</td>
+        </tr>
+        <tr>
+          <td>&lt;numeric&gt;</td>
+          <td>1.5E4</td>
+          <td>An integer or floating-point variable</td>
+        </tr>
+      </table>
+
+      <h3><a name="Commodore">COMMODORE 64 APPLICATIONS GUIDE</a></h3>
+
+      <p>
+        When you first thought about buying a computer you probably asked
+        yourself, "Now that I can afford to buy a computer, what can I do with
+        it once I get one?" The great thing about your <b>COMMODORE 64</b> is
+        that you can make it do what YOU want it to do!
+      </p>
+
+      <p>
+        You can make it calculate and keep track of home and business budget
+        needs. You can use it for word processing. You can make it play
+        arcade-style action games. You can make it sing. You can even create
+        your own animated cartoons, and more.
+      </p>
+      <p>
+        The best part of owning a <b>COMMODORE 64</b> is that even if it did
+        only one of the things listed below it would be well worth the price you
+        paid for it. But the 64 is a complete computer and it does do EVERYTHING
+        listed and then some!
+      </p>
+
+      <p>
+        By the way, in addition to everything here you can pick up a lot of
+        other creative and practical ideas by signing up with a local Commodore
+        Users' Club, subscribing to the <b>COMMODORE</b> and
+        <b>POWER/PLAY</b> magazines, and joining the
+        <b>COMMODORE INFORMATION NETWORK</b> on CompuServe<sup><small>TM</small></sup>.
+      </p>
+      <table>
+        <tr>
+          <th>APPLICATION</th>
+          <th>COMMENTS/REQUIREMENTS</th>
+        </tr>
+        <tr>
+          <td class="top-align">ACTION PACKED GAMES</td>
+          <td class="top-align">
+            You can get real Bally Midway arcade games like Omega Race, Gorf and
+            Wizard of War, as well as "play and learn" games like Math Teacher
+            1, Home Babysitter and Commodore Artist.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">ADVERTISING & MERCHANDISING</td>
+          <td class="top-align">
+            Hook your <b>COMMODORE 64</b> to a TV, put it in a store window with
+            a flashing, animated, and musical message and you've got a great
+            point of purchase store display.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">ANIMATION</td>
+          <td class="top-align">
+            Commodore's Sprite Graphics allow you to create real cartoons with 8
+            different levels so that shapes can move in front of or behind each
+            other.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">BABYSITTING</td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> HOME BABYSITTER cartridge can keep your
+            youngest child occupied for hours and teach alphabet/ keyboard
+            recognition at the same time. It also teaches special learning
+            concepts and relationships.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">BASIC PROGRAMMING</td>
+          <td class="top-align">
+            Your <b>COMMODORE 64 USER'S GUIDE</b> and the TEACH YOURSELF
+            PROGRAMMING series of books and tapes offer an excellent starting
+            point.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">BUSINESS<br />SPREADSHEET</td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> offers the "Easy" series of business aids
+            including the most powerful word processor and largest spreadsheet
+            available for any personal computer.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">COMMUNICATION</td>
+          <td class="top-align">
+            Enter the fascinating world of computer "net- working." If you hook
+            a VICMODEM to your <b>COMMODORE 64</b> you can communicate with
+            other computer owners all around the world. Not only that, if you join the
+            <b>COMMODORE INFORMATION NETWORK</b> on CompuServe<sup><small>TM</small></sup>
+            you can get the latest news and updates on all Commodore products,
+            financial information, shop at home services, you can even play
+            games with the friends you make through the information systems you
+            join.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">COMPOSING SONGS</td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> is equipped with the most sophisticated
+            built-in music synthesizer available on any computer. It has three
+            completely programmable voices, nine full music octaves, and four
+            controllable waveforms. Look for Commodore Music Cartridges and
+            Commodore Music books to help you create or reproduce all kinds of
+            music and sound effects.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">
+            CP/M<sup><small>*</small></sup>
+          </td>
+          <td class="top-align">
+            Commodore offers a CP/M<sup><small>*</small></sup> add-on and access
+            to software through an easy-to-load cartridge.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">DEXTERITY TRAINING</td>
+          <td class="top-align">
+            Hand/Eye coordination and manual dexterity are aided by several
+            Commodore games... including "Jupiter lander" and night driving
+            simulation.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">EDUCATION</td>
+          <td class="top-align">
+            While working with a computer is an education in itself, The
+            COMMODORE Educational Resource Book contains general information on
+            the educational uses of computers. We also have a variety of
+            learning cartridges designed to teach everything from music to math
+            and art to astronomy.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">FOREIGN LANGUAGE</td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> programmable character set lets you replace
+            the standard character set with user defined foreign language
+            characters.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="top-align">GRAPHICS AND ART</td>
+          <td class="top-align">
+            In addition to the Sprite Graphics mentioned above, the
+            <b>COMMODORE 64</b> offers high-resolution, multi-color graphics
+            plotting, programmable characters, and combinations of all the
+            different graphics and character display modes.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            INSTRUMENT CONTROL
+          </td>
+          <td class="top-align">
+            Your <b>COMMODORE 64</b> has a serial port, RS-232 port and a user
+            port for use with a variety of special industrial applications. An
+            IEEE/488 cartridge is also available as an optional extra.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            JOURNALS AND CREATIVE WRITING
+          </td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> will soon offer an exceptional
+            wordprocessing system that matches or exceeds the qualities and
+            flexibilities of most "high-priced" wordprocessors available. Of
+            course you can save the information on either a 1541 Disk Drive or a
+            Datassette<sup><small>TM</small></sup> recorder and have it printed
+            out using a VIC-PRINTER or PLOTTER.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            LIGHTPEN CONTROL
+          </td>
+          <td class="top-align">
+            Applications requiring the use of a lightpen can be performed by any
+            lightpen that will fit the <b>COMMODORE 64</b> game port connector.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            MACHINE CODE PROGRAMMING
+          </td>
+          <td class="top-align">
+            Your <b>COMMODORE 64 PROGRAMMER'S REFERENCE GUIDE</b>
+            includes a machine language section, as well as a BASIC to machine
+            code interface section. There's even a bibliography available for
+            more in-depth study.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            PAYROLL & FORMS PRINTOUT
+          </td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> can be programmed to handle a variety of
+            entry-type business applications. Upper/lower case letters combined
+            with C64 "business form" graphics make it easy for you to design
+            forms which can then be printed on your printer.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            PRINTING
+          </td>
+          <td class="top-align">
+            The <b>COMMODORE 64</b> interfaces with a variety of dot matrix and
+            letter quality printers as well as plotters.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            RECIPES
+          </td>
+          <td class="top-align">
+            You can store your favorite recipes on your <b>COMMODORE 64</b> and
+            its disk or cassette storage unit, and end the need for messy recipe
+            cards that often get lost when you need them most.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            SIMULATIONS
+          </td>
+          <td class="top-align">
+            Computer simulations let you conduct dangerous or expensive
+            experiments at minimum risk and cost.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">
+            SPORTS DATA
+          </td>
+          <td class="top-align">
+            The Source<sup><small>TM</small></sup> and CompuServe<sup
+              ><small>TM</small></sup
+            >
+            both offer sports information which you can get using your
+            <b>COMMODORE 64</b> and a VICMODEM.
+          </td>
+        </tr>
+        <tr>
+          <td class="top-align">STOCK QUOTES</td>
+          <td class="top-align">
+            With a VICMODEM and a subscription to any of the appropriate network
+            services, your <b>COMMODORE 64</b>
+            becomes your own private stock ticker.
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        These are just a few of the many applications for you and your
+        <b>COMMODORE 64</b>. As you can see, for work or play, at home, in
+        school or the office, your <b>COMMODORE 64</b> gives you a practical
+        solution for just about any need.
+      </p>
+
+      <p>
+        Commodore wants you to know that our support for users only STARTS with
+        your purchase of a Commodore computer. That's why we've created two
+        publications with Commodore information from around the world, and a
+        "two-way" computer information network with valuable input for users in
+        the U.S. and Canada from coast to coast.
+      </p>
+
+      <p>
+        In addition, we wholeheartedly encourage and support the growth of
+        Commodore Users' Clubs around the world. They are an excellent source of
+        information for every Commodore computer owner from the beginner to the
+        most advanced. The magazines and network, which are more fully described
+        below, have the most up-to-date information about how to get involved
+        with the Users' Club in your area.
+      </p>
+
+      <p>
+        Finally, your local Commodore dealer is a useful source of Commodore
+        support and information.
+      </p>
+
+      <h3>
+        POWER/PLAY<br />
+        The Home Computer Magazine
+      </h3>
+
+      <p>
+        When it comes to entertainment, learning at home and practical home
+        applications, <b>POWER/PLAY</b> is THE prime source of information for
+        Commodore home users. Find out where your nearest user clubs are and
+        what they're doing, learn about software, games, programming techniques,
+        telecommunications, and new products. <b>POWER/PLAY</b> is your personal
+        connection to other Commodore users, outside software and hardware
+        developers, and to Commodore itself. Published quarterly. Only $10.00
+        for a year of home computing excitement.
+      </p>
+
+      <h3>COMMODORE<br>
+        The Microcomputer Magazine</h3>
+    
+    <p>Widely read by educators, businessmen and students, as well as home
+     computerists, <b>COMMODORE Magazine</b> is our main vehicle for sharing
+     exclusive information on the more technical use of Commodore systems.
+     Regular departments cover business, science and education, programming
+     tips, "excerpts from a technical notebook," and many other features of
+     interest to anyone who uses or is thinking about purchasing Commodore
+     equipment for business, scientific or educational applications.
+     <b>COMMODORE</b> is the ideal complement to <b>POWER/PLAY</b>. Published
+     bimonthly. Subscription price: $15.00 per year.</p>
+    
+     <p class=blue><b>AND FOR EVEN MORE INFORMATION...<br>
+     ...DIAL UP OUR PAPERLESS USER MAGAZINE</b>
+    
+    <h3><a name="Network">COMMODORE INFORMATION NETWORK</a></h3>
+    
+    <p>The magazine of the future is here. To supplement and enhance your
+     subscription to <b>POWER/PLAY</b> and <b>COMMODORE</b> magazines, the <b>COMMODORE
+     INFORMATION NETWORK</b> - our "paperless magazine" - is available now over
+     the telephone using your Commodore computer and modem.</p>
+    
+    <p>Join our computer club, get help with a computing problem, "talk" to
+     other Commodore friends, or get up-to-the-minute information on new
+     products, software and educational resources. Soon you will even be
+     able to save yourself the trouble of typing in the program listings you
+     find in <b>POWER/PLAY</b> or <b>COMMODORE</b> by downloading direct from the
+     Information Network (a new user service planned for early 1983). The
+     best part is that most of the answers are there before you even ask the
+     questions. (How's that for service?)</p>
+    
+     <p>To call our electronic magazine you need only a modem and a
+     subscription to CompuServe<sup><small>TM</small></sup>, one of the
+     nation's largest telecommunications networks. (To make it easy for you
+     Commodore includes a FREE year's subscription to
+     CompuServe<sup><small>TM</small></sup> in each VICMODEM package.) Just
+     dial your local number for the CompuServe<sup><small>TM</small></sup> data
+     bank and connect your phone to the modem. When the
+     CompuServe<sup><small>TM</small></sup> video text appears on your screen
+     type G CBM on your computer keyboard. When the <b>COMMODORE INFORMATION
+     NETWORK'S</b> table of contents, or "menu," appears on your screen choose
+     from one of our sixteen departments, make yourself comfortable, and enjoy
+     the paperless magazine other magazines are writing about.</p>
+
+     <p>For more information, visit your Commodore dealer or contact
+      Compuserve<sup><small>TM</small></sup> customer service at 800-848-8990 (in
+      Ohio, 614-457-8600).
+      
+      <p>
+      <table class="t-border">
+      <caption><b>COMMODORE INFORMATION NETWORK</b></caption>
+      <tr><td>Main Menu Description</td><td>Commodore Dealers</td></tr>
+      <tr><td>Direct Access Codes</td><td>Educational Resources</td></tr>
+      <tr><td>Special Commands</td><td>User Groups</td></tr>
+      <tr><td>User Questions</td><td>Descriptions</td></tr>
+      <tr><td>Public Bulletin Board</td><td>Questions and Answers</td></tr>
+      <tr><td>Magazines and Newsletters</td><td>Software Tips</td></tr>
+      <tr><td>Products Announced</td><td>Technical Tips</td></tr>
+      <tr><td>Commodore News Direct</td><td>Directory Descriptions</td></tr>
+      </table>
+    </div>
+  </body>
+</html>
