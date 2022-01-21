@@ -487,6 +487,10 @@ pre code {
   color: white;
 }
 
+a {
+  color: hsl(246, 77%, 62%);
+}
+
 a.menu-link {
   float: right;
   display: block;
